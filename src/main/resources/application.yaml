@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: sistema_de_reserva_coworking
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/coworking_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # ⚠️ luego te explico esto
+    show-sql: true       # para ver queries en consola
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
