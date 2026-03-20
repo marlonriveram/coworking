@@ -9,7 +9,26 @@ import lombok.*;
 public class Space {
 
     private Long id;
+    private String name;
     private SpaceType spaceType;
-    private int maxCapacity;
+    private Integer maxCapacity;
     private String description;
+
+    public void update (String name, Integer maxCapacity, String description, SpaceType spaceType) {
+
+        if(name != null) {
+            this.name = name;
+        }
+        if(spaceType != null) {
+            this.spaceType = spaceType;
+        }
+
+        if(description != null) {
+            this.description = description;
+        }
+
+        if(maxCapacity != null ) {
+            this.maxCapacity = maxCapacity;
+        }
+    }
 }

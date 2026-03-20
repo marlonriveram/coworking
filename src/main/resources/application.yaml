@@ -11,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update   # ⚠️ luego te explico esto
+      ddl-auto: create-drop   # ⚠️ luego te explico esto
     show-sql: true       # para ver queries en consola
     properties:
       hibernate:
