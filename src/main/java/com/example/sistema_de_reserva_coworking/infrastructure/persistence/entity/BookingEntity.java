@@ -1,4 +1,4 @@
-package com.example.sistema_de_reserva_coworking.infrastructure.config.persistence.entity;
+package com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

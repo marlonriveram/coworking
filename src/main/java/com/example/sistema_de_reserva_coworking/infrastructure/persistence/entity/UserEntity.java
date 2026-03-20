@@ -1,6 +1,5 @@
-package com.example.sistema_de_reserva_coworking.infrastructure.config.persistence.entity;
+package com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity;
 
-import com.example.sistema_de_reserva_coworking.domain.model.User;
 import com.example.sistema_de_reserva_coworking.domain.model.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
