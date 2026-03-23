@@ -25,3 +25,11 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+jwt:
+  secret: 7jlqRk5t7COwMgiMEEhiHfm4MijJusDAXx1OAB9RKttXUxdr70Yp0PSrtnvWJu1
+  expiration: 86400000
+
+admin:
+  password: admin123
+  email: admin@gmail.com
