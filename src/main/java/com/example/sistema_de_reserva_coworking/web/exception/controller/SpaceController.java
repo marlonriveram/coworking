@@ -9,6 +9,7 @@ import com.example.sistema_de_reserva_coworking.application.service.space.Update
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,22 +27,22 @@ public class SpaceController {
 
 
     @PostMapping
-    public SpaceResponse create(@Valid @RequestBody SpaceRequest space) {
-        return create.executed(space);
+    public ResponseEntity<SpaceResponse> create(@Valid @RequestBody SpaceRequest space) {
+        return ResponseEntity.ok(create.executed(space));
     }
 
     @GetMapping
-    public List<SpaceResponse> getAll() {
-        return getAll.executed();
+    public ResponseEntity<List<SpaceResponse>> getAll() {
+        return ResponseEntity.ok(getAll.executed());
     }
 
     @PutMapping("/{id}")
-    public SpaceResponse update(@RequestBody SpaceRequest space, @PathVariable Long id) {
-        return update.executed(space,id);
+    public ResponseEntity<SpaceResponse> update(@RequestBody SpaceRequest space, @PathVariable Long id) {
+        return ResponseEntity.ok(update.executed(space, id));
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        return delete.executed(id);
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return ResponseEntity.ok(delete.executed(id));
     }
 }

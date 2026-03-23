@@ -1,6 +1,5 @@
-package com.example.sistema_de_reserva_coworking.application.dto.user;
+package com.example.sistema_de_reserva_coworking.application.dto.auth;
 
-import com.example.sistema_de_reserva_coworking.domain.model.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -9,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserRequest {
+public class RegisterRequest {
     @NotBlank
     private String username;
     @NotBlank
@@ -17,6 +16,5 @@ public class UserRequest {
     private String email;
     @NotBlank
     private String password;
-    @NonNull
-    private UserRole rol;
+
 }

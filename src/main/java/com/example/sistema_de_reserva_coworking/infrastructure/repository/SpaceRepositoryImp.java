@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class SpaceRepositoryJpa implements SpaceRepository {
+public class SpaceRepositoryImp implements SpaceRepository {
 
     private final JpaSpaceRepository jpaSpaceRepository;
 
