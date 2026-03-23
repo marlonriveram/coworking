@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,21 +27,25 @@ public class SpaceController {
     private final Delete delete;
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<SpaceResponse> create(@Valid @RequestBody SpaceRequest space) {
         return ResponseEntity.ok(create.executed(space));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<SpaceResponse>> getAll() {
         return ResponseEntity.ok(getAll.executed());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<SpaceResponse> update(@RequestBody SpaceRequest space, @PathVariable Long id) {
         return ResponseEntity.ok(update.executed(space, id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return ResponseEntity.ok(delete.executed(id));
