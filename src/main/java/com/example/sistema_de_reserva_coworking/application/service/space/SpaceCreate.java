@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class Create {
+public class SpaceCreate {
 
     private final SpaceRepository spaceRepository;
 

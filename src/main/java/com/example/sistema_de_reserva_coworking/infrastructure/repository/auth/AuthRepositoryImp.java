@@ -1,4 +1,4 @@
-package com.example.sistema_de_reserva_coworking.infrastructure.repository;
+package com.example.sistema_de_reserva_coworking.infrastructure.repository.auth;
 
 import com.example.sistema_de_reserva_coworking.application.mapper.UserMapper;
 import com.example.sistema_de_reserva_coworking.domain.model.User;
@@ -37,5 +37,16 @@ public class AuthRepositoryImp implements AuthRepository {
     @Override
     public boolean existsByEmail(String email) {
         return jpaAuthRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return jpaAuthRepository.existsById(id);
+    }
+
+    @Override
+    public User getReferenceById(Long id) {
+        UserEntity response = jpaAuthRepository.getReferenceById(id);
+        return UserMapper.mapUserEntityToUser(response);
     }
 }

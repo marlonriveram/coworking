@@ -1,7 +1,6 @@
 package com.example.sistema_de_reserva_coworking.domain.repository;
-
-
 import com.example.sistema_de_reserva_coworking.domain.model.Space;
+import com.example.sistema_de_reserva_coworking.infrastructure.repository.projections.SpaceCapacity;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +17,12 @@ public interface SpaceRepository {
 
     Optional<Space> findByName(String name);
 
+    boolean existsById(Long id);
+
     boolean existsByName(String name);
+
+    Space getReferenceById (Long id);
+
+    Optional<SpaceCapacity> findMaxCapacityById(Long id);
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetAll {
+public class SpaceGetAll {
     private final SpaceRepository spaceRepository;
 
     public List<SpaceResponse> executed () {

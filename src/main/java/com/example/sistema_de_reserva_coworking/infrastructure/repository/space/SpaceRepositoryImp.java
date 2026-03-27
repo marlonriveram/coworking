@@ -1,9 +1,10 @@
-package com.example.sistema_de_reserva_coworking.infrastructure.repository;
+package com.example.sistema_de_reserva_coworking.infrastructure.repository.space;
 
 import com.example.sistema_de_reserva_coworking.application.mapper.SpaceMapper;
 import com.example.sistema_de_reserva_coworking.domain.model.Space;
 import com.example.sistema_de_reserva_coworking.domain.repository.SpaceRepository;
 import com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity.SpaceEntity;
+import com.example.sistema_de_reserva_coworking.infrastructure.repository.projections.SpaceCapacity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -48,7 +49,25 @@ public class SpaceRepositoryImp implements SpaceRepository {
     }
 
     @Override
+    public boolean existsById(Long id) {
+        return jpaSpaceRepository.existsById(id);
+    }
+
+    @Override
     public boolean existsByName(String name) {
         return jpaSpaceRepository.existsByName(name);
+    }
+
+    @Override
+    public Space getReferenceById(Long id) {
+        SpaceEntity response = jpaSpaceRepository.getReferenceById(id);
+        return SpaceMapper.mapSpaceEntityToSpace(response);
+    }
+
+
+    //Projection, para traer solo una columna en especifico
+    @Override
+    public Optional<SpaceCapacity> findMaxCapacityById(Long id) {
+        return jpaSpaceRepository.findMaxCapacityById(id);
     }
 }

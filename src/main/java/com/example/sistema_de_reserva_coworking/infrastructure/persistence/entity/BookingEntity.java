@@ -1,8 +1,10 @@
 package com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity;
 
+import com.example.sistema_de_reserva_coworking.domain.model.ReservationSlot;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -15,7 +17,7 @@ import java.time.LocalTime;
 public class BookingEntity {
 
     @EmbeddedId
-    private CompoundKey compoundKey;
+    private CompoundKey id;
 
     @ManyToOne
     @MapsId("userId")
@@ -27,8 +29,9 @@ public class BookingEntity {
     @JoinColumn(name = "space_id")
     private SpaceEntity space;
 
-    private LocalTime startTime;
-    private LocalTime endTime;
+    @Enumerated(EnumType.STRING)
+    private ReservationSlot slot;
+    private LocalDate date;
     private int attendees;
 
 }

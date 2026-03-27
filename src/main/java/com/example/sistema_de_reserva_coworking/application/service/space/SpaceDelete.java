@@ -8,17 +8,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class Delete {
+public class SpaceDelete {
     private final SpaceRepository spaceRepository;
 
-    public String executed (Long id) {
+    public void executed (Long id) {
 
         Space space = spaceRepository.findById(id)
                 .orElseThrow(() -> new NotFound("El espacio con ese nombre no existe"));
-
-
         spaceRepository.deleteById(id);
-
-        return "El espacio con el " + id + "fue eliminado Correctamente";
     }
 }

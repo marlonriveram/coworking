@@ -2,6 +2,7 @@ package com.example.sistema_de_reserva_coworking.domain.model;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Getter @Setter
@@ -11,7 +12,7 @@ import java.time.LocalTime;
 public class Booking {
     private User user;
     private Space space;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private LocalDate date;
+    private ReservationSlot slot;
     private int attendees;
 }

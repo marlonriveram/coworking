@@ -1,7 +1,7 @@
 package com.example.sistema_de_reserva_coworking.infrastructure.security.userDetails;
 
 import com.example.sistema_de_reserva_coworking.domain.exceptions.NotFound;
-import com.example.sistema_de_reserva_coworking.infrastructure.repository.JpaAuthRepository;
+import com.example.sistema_de_reserva_coworking.infrastructure.repository.auth.JpaAuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.userdetails.UserDetails;
