@@ -1,14 +1,16 @@
 package com.example.sistema_de_reserva_coworking.application.validator;
 
+
 import com.example.sistema_de_reserva_coworking.application.dto.booking.BookingRequest;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.AlreadyExists;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.BadRequest;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.NotFound;
+import com.example.sistema_de_reserva_coworking.domain.exceptions.Unauthorized;
+import com.example.sistema_de_reserva_coworking.domain.model.Booking;
 import com.example.sistema_de_reserva_coworking.domain.model.UserRole;
 import com.example.sistema_de_reserva_coworking.domain.repository.AuthRepository;
 import com.example.sistema_de_reserva_coworking.domain.repository.BookingRepository;
 import com.example.sistema_de_reserva_coworking.domain.repository.SpaceRepository;
-import com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity.CompoundKey;
 import com.example.sistema_de_reserva_coworking.infrastructure.repository.projections.SpaceCapacity;
 import com.example.sistema_de_reserva_coworking.infrastructure.security.userDetails.CustomUserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +25,21 @@ public class BookingValidator {
     private final BookingRepository bookingRepository;
 
     public void Create(BookingRequest request) {
-        validateBookingExists(request);
-        validateUserExists(request);
         validateSpaceExists(request);
         validateMaxCapacity(request);
         validateBookingOccupied(request);
+    }
+
+    public void Updta(BookingRequest request, CustomUserPrincipal principal,Booking booking) {
+        validateBookingOccupied(request);
+        if(principal == null && booking == null) {
+            validateMaxCapacity(request);
+        }
+
+        if(principal != null && booking != null) {
+            validateIsOwnerOrAdmin(booking,principal);
+        }
+
     }
 
     public Long getAll (CustomUserPrincipal principal, Long userId) {
@@ -40,21 +52,18 @@ public class BookingValidator {
         return principal.getUserId();
     }
 
+    public void delete(Booking booking,CustomUserPrincipal principal) {
+       validateIsOwnerOrAdmin(booking, principal);
+    }
 
-    private void validateBookingExists(BookingRequest request){
+    private void validateIsOwnerOrAdmin(Booking booking,CustomUserPrincipal principal) {
+        boolean isOwner = booking.getUser().getId().equals(principal.getUserId());
+        boolean isAdmin = principal.getRole().equals(UserRole.ADMIN.name());
 
-        CompoundKey id =  new CompoundKey(
-                request.getUserId(),
-                request.getSpaceId()
-        );
-
-        boolean existsBooking = bookingRepository.existsById(id);
-        if (existsBooking) {
-            throw new AlreadyExists("El Usuraio ya se encuentra registrado en esta clase");
-
+        if(!isOwner && !isAdmin){
+            throw new Unauthorized("No tienes acceso para eliminar la recerva");
         }
-
-}
+    }
 
     private void validateBookingOccupied (BookingRequest request){
         boolean isOccupied = bookingRepository.existsBySpaceIdAndDateAndSlot(
@@ -64,15 +73,7 @@ public class BookingValidator {
         );
 
         if (isOccupied) {
-            throw new AlreadyExists("Espacio no disponible en ese horario");
-        }
-    }
-
-    private void validateUserExists(BookingRequest request){
-        boolean exists = authRepository.existsById(request.getUserId());
-
-        if (!exists) {
-            throw new NotFound("Usuario no encontrado");
+            throw new AlreadyExists("Espacio no disponible en esa fecha a esa hora");
         }
     }
 
@@ -95,4 +96,3 @@ public class BookingValidator {
     }
 }
 
-// CREAR CONTROLLER YA DE MOSTRAR OPCIONES DE HORARIOS Y MOSTRAR TODAS LAS RESERVAS

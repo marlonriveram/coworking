@@ -13,18 +13,20 @@ public class BookingMapper {
 
     public static BookingEntity mapBookingToBookingEntity(Booking booking){
         if(booking == null) return null;
-
+/*
         CompoundKey bookingId = new CompoundKey(
                 booking.getUser().getId(),
                 booking.getSpace().getId()
         );
+
+ */
 
          UserEntity bookingUser = UserMapper.mapUsertoUserEntity(booking.getUser());
         SpaceEntity bookingSpace = SpaceMapper.mapSpaceToSpaceEntity(booking.getSpace());
 
 
         return BookingEntity.builder()
-                .id(bookingId)
+                .id(booking.getId())
                 .user(bookingUser)
                 .space(bookingSpace)
                 .date(booking.getDate())
@@ -40,6 +42,7 @@ public class BookingMapper {
         Space  space = SpaceMapper.mapSpaceEntityToSpace(bookingEntity.getSpace());
 
         return Booking.builder()
+                .id(bookingEntity.getId())
                 .user(user)
                 .space(space)
                 .date(bookingEntity.getDate())
@@ -52,6 +55,7 @@ public class BookingMapper {
         if(booking == null) return null;
 
         return BookingResponse.builder()
+                .id(booking.getId())
                 .nameUser(booking.getUser().getUsername())
                 .nameSpace(booking.getSpace().getName())
                 .date(booking.getDate())

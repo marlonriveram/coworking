@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 public class BookingResponse {
+    private Long id;
     private String nameUser;
     private String nameSpace;
     private LocalDate date;

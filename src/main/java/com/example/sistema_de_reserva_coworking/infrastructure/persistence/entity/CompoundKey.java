@@ -7,11 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Embeddable
-@EqualsAndHashCode
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Embeddable
+//@EqualsAndHashCode
 public class CompoundKey implements Serializable {
     private Long userId;
     private Long  spaceId;
 }
+
+
+// REVISAR LA ULTIMA PREGUNTA DE GEMINI ANTES DE CONTINUAR CON CUAL QUIER COSA

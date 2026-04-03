@@ -3,16 +3,20 @@ package com.example.sistema_de_reserva_coworking.web.exception;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.AlreadyExists;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.BadRequest;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.NotFound;
+import com.example.sistema_de_reserva_coworking.domain.exceptions.Unauthorized;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,6 +33,37 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiError> handleValidationExceptions(
+            MethodArgumentNotValidException ex,
+            HttpServletRequest request
+            ) {
+        ApiError error = new ApiError(
+                "Error en el contenido del body",
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                request.getRequestURI()
+        );
+
+
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST); // Retorna 400
+    }
+
+    @ExceptionHandler(Unauthorized.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<ApiError> handleUnauthorized(Unauthorized exception, HttpServletRequest request) {
+
+        ApiError error = new ApiError(
+                exception.getMessage(),
+                HttpStatus.UNAUTHORIZED.value(),
+                HttpStatus.UNAUTHORIZED.getReasonPhrase(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(NotFound.class)
@@ -57,7 +92,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
 
-// Revisar
+
+
+
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

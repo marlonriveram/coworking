@@ -31,6 +31,16 @@ public class SpaceRepositoryImp implements SpaceRepository {
     }
 
     @Override
+    public List<Space> saveAll(List<Space> spaces) {
+
+        List<SpaceEntity> entities = spaces.stream()
+                .map(SpaceMapper::mapSpaceToSpaceEntity)
+                .toList();
+
+        return jpaSpaceRepository.saveAll(entities).stream().map(SpaceMapper::mapSpaceEntityToSpace).toList();
+    }
+
+    @Override
     public Optional<Space> findById(Long id) {
 
         return jpaSpaceRepository.findById(id).map(SpaceMapper::mapSpaceEntityToSpace);
@@ -42,11 +52,6 @@ public class SpaceRepositoryImp implements SpaceRepository {
         jpaSpaceRepository.deleteById(id);
     }
 
-    @Override
-    public Optional<Space> findByName(String name) {
-
-        return jpaSpaceRepository.findByName(name).map(SpaceMapper::mapSpaceEntityToSpace);
-    }
 
     @Override
     public boolean existsById(Long id) {

@@ -6,6 +6,7 @@ import com.example.sistema_de_reserva_coworking.application.dto.auth.RegisterReq
 import com.example.sistema_de_reserva_coworking.application.dto.auth.RegisterResponse;
 import com.example.sistema_de_reserva_coworking.application.service.auth.Login;
 import com.example.sistema_de_reserva_coworking.application.service.auth.Register;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ResponseEntity.ok(register.execute(request));
     }
 

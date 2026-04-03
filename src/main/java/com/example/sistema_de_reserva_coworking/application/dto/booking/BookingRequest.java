@@ -14,7 +14,6 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 public class BookingRequest {
-    private Long userId;
     private Long spaceId;
     private LocalDate date;
     private ReservationSlot slot;

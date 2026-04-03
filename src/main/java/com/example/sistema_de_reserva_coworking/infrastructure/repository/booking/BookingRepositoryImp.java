@@ -1,5 +1,6 @@
 package com.example.sistema_de_reserva_coworking.infrastructure.repository.booking;
 
+import com.example.sistema_de_reserva_coworking.application.dto.UserAndSpace;
 import com.example.sistema_de_reserva_coworking.application.mapper.BookingMapper;
 import com.example.sistema_de_reserva_coworking.domain.model.Booking;
 import com.example.sistema_de_reserva_coworking.domain.model.ReservationSlot;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -26,13 +28,12 @@ public class BookingRepositoryImp implements BookingRepository {
     }
 
     @Override
-    public boolean existsById(CompoundKey id) {
-        return jpaBookingRepository.existsById(id);
+    public boolean existsByUserId(Long id) {
+        return jpaBookingRepository.existsByUserId(id);
     }
 
-
     @Override
-    public void deleteById(CompoundKey id) {
+    public void deleteById(Long id) {
         jpaBookingRepository.deleteById(id);
     }
 
@@ -42,8 +43,8 @@ public class BookingRepositoryImp implements BookingRepository {
     }
 
     @Override
-    public List<Booking> findAll() {
-        return jpaBookingRepository.findAll().stream().map(BookingMapper::mapBookingEntityToBooking).toList();
+    public Optional<Booking> findById(Long id) {
+        return jpaBookingRepository.findById(id).map(BookingMapper::mapBookingEntityToBooking);
     }
 
     @Override

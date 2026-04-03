@@ -1,5 +1,8 @@
 package com.example.sistema_de_reserva_coworking.domain.model;
 
+import lombok.Getter;
+
+@Getter
 public enum ReservationSlot {
     MORNING_1("08:00", "10:00"),
     MORNING_2("10:00", "12:00"),
@@ -14,6 +17,4 @@ public enum ReservationSlot {
      this.endTime = endTime;
  }
 
-    public String getStartTime() { return startTime; }
-    public String getEndTime() { return endTime; }
 }

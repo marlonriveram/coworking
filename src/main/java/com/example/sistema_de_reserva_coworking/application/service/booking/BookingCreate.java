@@ -8,11 +8,13 @@ import com.example.sistema_de_reserva_coworking.domain.exceptions.AlreadyExists;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.NotFound;
 import com.example.sistema_de_reserva_coworking.domain.model.Booking;
 import com.example.sistema_de_reserva_coworking.domain.model.Space;
+import com.example.sistema_de_reserva_coworking.domain.model.SpaceStatus;
 import com.example.sistema_de_reserva_coworking.domain.model.User;
 import com.example.sistema_de_reserva_coworking.domain.repository.AuthRepository;
 import com.example.sistema_de_reserva_coworking.domain.repository.BookingRepository;
 import com.example.sistema_de_reserva_coworking.domain.repository.SpaceRepository;
 import com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity.CompoundKey;
+import com.example.sistema_de_reserva_coworking.infrastructure.security.userDetails.CustomUserPrincipal;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,11 +31,11 @@ public class BookingCreate {
     // PROBAR SI CREA LA BOOKING, SI LO HACE TENER EN CUENTA QUE SE BEBEN VALIDAR REGLAS DE NEGOCION QUE
     // AUN NO SE HAN TOMADO EN CUENTA
 
-    public BookingResponse execute (BookingRequest request) {
+    public BookingResponse execute (BookingRequest request, CustomUserPrincipal principal) {
 
        validator.Create(request);
 
-        User user = authRepository.getReferenceById(request.getUserId());
+        User user = authRepository.getReferenceById(principal.getUserId());
         Space space = spaceRepository.getReferenceById(request.getSpaceId());
 
         Booking booking = Booking.builder()

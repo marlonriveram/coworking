@@ -16,16 +16,18 @@ import java.time.LocalTime;
 @Builder
 public class BookingEntity {
 
-    @EmbeddedId
-    private CompoundKey id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
 
     @ManyToOne
-    @MapsId("userId")
+    //@MapsId("userId")
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToOne
-    @MapsId("spaceId")
+   // @MapsId("spaceId")
     @JoinColumn(name = "space_id")
     private SpaceEntity space;
 

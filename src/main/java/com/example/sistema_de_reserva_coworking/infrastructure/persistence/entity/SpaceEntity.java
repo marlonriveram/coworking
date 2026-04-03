@@ -1,5 +1,6 @@
 package com.example.sistema_de_reserva_coworking.infrastructure.persistence.entity;
 
+import com.example.sistema_de_reserva_coworking.domain.model.SpaceStatus;
 import com.example.sistema_de_reserva_coworking.domain.model.SpaceType;
 import jakarta.persistence.*;
 import lombok.*;
