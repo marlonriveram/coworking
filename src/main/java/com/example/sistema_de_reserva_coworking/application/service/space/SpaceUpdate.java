@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class Update {
+public class SpaceUpdate {
     private final SpaceRepository spaceRepository;
 
     public SpaceResponse executed (SpaceRequest request, Long id) {

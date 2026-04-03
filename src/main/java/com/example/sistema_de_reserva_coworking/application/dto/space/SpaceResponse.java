@@ -1,5 +1,6 @@
 package com.example.sistema_de_reserva_coworking.application.dto.space;
 
+import com.example.sistema_de_reserva_coworking.domain.model.SpaceStatus;
 import com.example.sistema_de_reserva_coworking.domain.model.SpaceType;
 import lombok.*;
 
@@ -14,4 +15,5 @@ public class SpaceResponse {
     private SpaceType spaceType;
     private Integer maxCapacity;
     private String description;
+
 }
