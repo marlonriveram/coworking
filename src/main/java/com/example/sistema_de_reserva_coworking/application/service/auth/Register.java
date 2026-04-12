@@ -22,7 +22,7 @@ public class Register {
 
         boolean existsEmail = authRepository.existsByEmail(request.getEmail());
         if (existsEmail) {
-            throw new AlreadyExists("Emial ya esta registrado");
+            throw new AlreadyExists("email is already exists");
         }
 
         String password = passwordEncoder.encode(request.getPassword());

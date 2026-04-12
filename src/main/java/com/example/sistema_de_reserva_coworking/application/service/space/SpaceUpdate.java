@@ -2,6 +2,7 @@ package com.example.sistema_de_reserva_coworking.application.service.space;
 
 import com.example.sistema_de_reserva_coworking.application.dto.space.SpaceRequest;
 import com.example.sistema_de_reserva_coworking.application.dto.space.SpaceResponse;
+import com.example.sistema_de_reserva_coworking.application.dto.space.SpaceUpdateDto;
 import com.example.sistema_de_reserva_coworking.application.mapper.SpaceMapper;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.AlreadyExists;
 import com.example.sistema_de_reserva_coworking.domain.exceptions.NotFound;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class SpaceUpdate {
     private final SpaceRepository spaceRepository;
 
-    public SpaceResponse executed (SpaceRequest request, Long id) {
+    public SpaceResponse executed (SpaceUpdateDto request, Long id) {
 
         Space space = spaceRepository.findById(id)
                 .orElseThrow(() -> new NotFound("El espacio con ese nombre no existe"));
@@ -28,7 +29,7 @@ public class SpaceUpdate {
             throw new AlreadyExists("Ese nombre existe ya existe");
         }
 
-        if(space.getSpaceType().name() == SpaceType.HALL.name()){
+        if(space.getSpaceType().name().equals(SpaceType.HALL.name())){
             request.setMaxCapacity(1);
         }
 

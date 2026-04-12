@@ -45,7 +45,7 @@ public class BookingValidator {
     public Long getAll (CustomUserPrincipal principal, Long userId) {
 
         if (principal.getRole().equals(UserRole.ADMIN.name())) {
-            if (userId == null) throw new BadRequest("UserId requerido para Admin");
+            if (userId == null) throw new BadRequest(" query param UserId requerido para Admin");
             return userId;
         }
 
