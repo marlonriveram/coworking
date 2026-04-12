@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Base de datos MySQL
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-coworking
+    restart: always
+    environment:
+      MYSQL_DATABASE: coworking_db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306" # Tu PC entra por el 3307, el contenedor usa el 3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - coworking-network
+
+  # Tu Aplicación Spring Boot
+  backend:
+    build: . # Esto usará tu Dockerfile Multi-stage automáticamente
+    container_name: coworking-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - coworking-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/coworking_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+# Guardar los datos de la DB para que no se pierdan al borrar el contenedor
+volumes:
+  mysql_data:
+
+# Red interna para que la App y la DB se hablen entre ellas
+networks:
+  coworking-network:
