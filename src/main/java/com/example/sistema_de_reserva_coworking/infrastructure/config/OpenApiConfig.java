@@ -1,7 +1,8 @@
 package com.example.sistema_de_reserva_coworking.infrastructure.config;
-
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,11 +11,13 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-
         return new OpenAPI()
-                .info(new Info()
-                        .title("Sistema De-Reserva Coworking")
-                        .version("1.0")
-                        .description("Sistema De-Reserva Coworking"));
+                .addSecurityItem(new SecurityRequirement().addList("JavaInUseSecurityScheme"))
+                .components(new Components().addSecuritySchemes("JavaInUseSecurityScheme", new SecurityScheme()
+                        .name("JavaInUseSecurityScheme")
+                        .type(SecurityScheme.Type.HTTP)
+                        .bearerFormat("JWT")
+                        .scheme("bearer")));
     }
 }
+
