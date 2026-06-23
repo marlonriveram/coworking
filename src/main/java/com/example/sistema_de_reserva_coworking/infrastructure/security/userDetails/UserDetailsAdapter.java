@@ -23,6 +23,10 @@ public class UserDetailsAdapter implements UserDetails {
         );
     }
 
+    public UserEntity getUserEntity() {
+        return this.userEntity;
+    }
+
     @Override
     public @Nullable String getPassword() {
         return userEntity.getPassword();

@@ -1,9 +1,6 @@
 package com.example.sistema_de_reserva_coworking.web.exception.controller;
 
-import com.example.sistema_de_reserva_coworking.application.dto.space.AvailableSpaceRequest;
-import com.example.sistema_de_reserva_coworking.application.dto.space.AvailableSpaceResponse;
-import com.example.sistema_de_reserva_coworking.application.dto.space.SpaceRequest;
-import com.example.sistema_de_reserva_coworking.application.dto.space.SpaceResponse;
+import com.example.sistema_de_reserva_coworking.application.dto.space.*;
 import com.example.sistema_de_reserva_coworking.application.service.space.SpaceCreate;
 import com.example.sistema_de_reserva_coworking.application.service.space.SpaceDelete;
 import com.example.sistema_de_reserva_coworking.application.service.space.SpaceGetAll;
@@ -40,7 +37,7 @@ public class SpaceController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<SpaceResponse> update(@Valid @RequestBody SpaceRequest space, @PathVariable Long id) {
+    public ResponseEntity<SpaceResponse> update(@Valid @RequestBody SpaceUpdateDto space, @PathVariable Long id) {
         return ResponseEntity.ok(update.executed(space, id));
     }
 
@@ -55,7 +52,7 @@ public class SpaceController {
     // ENDPOINT PARA VER ESPACIOS DISPONIBLES
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PostMapping("/available")
-    public ResponseEntity<List<AvailableSpaceResponse>> getAvailableSpaces(@RequestBody AvailableSpaceRequest request) {
+    public ResponseEntity<List<AvailableSpaceResponse>> getAvailableSpaces(@Valid @RequestBody AvailableSpaceRequest request) {
 
         return  ResponseEntity.ok(getAll.executed(request));
     }
