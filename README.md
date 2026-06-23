@@ -152,6 +152,12 @@ Autenticación
 - Enviar header: Authorization: Bearer <token>
 - Rutas públicas: /auth/**, /slots/**, /swagger-ui/**, /v3/api-docs/**
 
+CORS
+- CORS está habilitado para todos los orígenes (*).
+- Se permiten todos los métodos HTTP (GET, POST, PUT, DELETE, OPTIONS, PATCH).
+- Se permiten todos los headers.
+- Cache de preflight por 1 hora (3600 segundos).
+
 Documentación Swagger
 - La aplicación expone configuración OpenAPI; Swagger UI suele estar disponible en: /swagger-ui/ ó /swagger-ui/index.html
 
